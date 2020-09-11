@@ -10,9 +10,7 @@ interface RadixConverterShowerCommonProp {
   radix: number;
   value: string;
   addonBefore: string;
-  readonly?: boolean;
   onRadixChange: (radix: number) => void;
-  onInputChange?: (input: string) => void;
 }
 
 type RadixConverterShowerProp = (
