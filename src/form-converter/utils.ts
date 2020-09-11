@@ -47,3 +47,14 @@ export function convertRepresentationOfNumber(
       return dv.getBigUint64(0).toString(2).padStart(64, '0');
   }
 }
+
+export type FloatType = 'f32' | 'f64';
+
+export function splitFloat(value: string, floatType: FloatType): [string, string, string] {
+  switch (floatType) {
+    case 'f32':
+      return [value.slice(0, 1), value.slice(1, 9), value.slice(9)];
+    case 'f64':
+      return [value.slice(0, 1), value.slice(1, 12), value.slice(12)];
+  }
+}
