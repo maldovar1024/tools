@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react';
 import { parseNumber } from './utils';
 import { RadixConverterShower } from './radix-converter-shower';
+import './index.less';
 
 export const RadixConverter: FC = () => {
   const [inputRadix, setInputRadix] = useState(10);
