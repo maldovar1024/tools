@@ -2,7 +2,7 @@ import { Radio } from 'antd';
 import React, { useState, FC } from 'react';
 import { FloatShower } from './float-shower';
 import Label from './label';
-import { convertRepresentationOfNumber, FloatType } from './utils';
+import { convertFormOfNumber, FloatType } from './utils';
 
 const RadioGroup = Radio.Group;
 
@@ -13,11 +13,11 @@ export const FormConverter: FC = () => {
   const [resultMode, setResultMode] = useState<FloatType>('f32');
 
   const handleInputChange = (input: string) => {
-    setInput(input);
-    const result = convertRepresentationOfNumber(input, inputMode, resultMode);
-    if (result !== null) {
-      setResult(result);
+    const result = convertFormOfNumber(input, inputMode, resultMode);
+    if (result !== '') {
+      setInput(input);
     }
+    setResult(result);
   };
 
   const handleInputModeChange = (mode: FloatType) => {
@@ -28,7 +28,7 @@ export const FormConverter: FC = () => {
 
   const handleResultModeChange = (mode: FloatType) => {
     setResultMode(mode);
-    const result = convertRepresentationOfNumber(input, inputMode, mode) ?? '';
+    const result = convertFormOfNumber(input, inputMode, mode);
     setResult(result);
   };
 

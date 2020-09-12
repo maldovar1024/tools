@@ -1,7 +1,7 @@
 import { Input } from 'antd';
 import React, { ChangeEventHandler, FC, useEffect, useRef, useState } from 'react';
 import './float-shower.less';
-import { checkFloatPart, floatInfo, FloatType, splitFloat } from './utils';
+import { checkFloatPart, FloatType, splitFloat } from './utils';
 
 interface FloatShowerCommonProp {
   value: string;
@@ -29,11 +29,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
   }, [props.value, floatType]);
 
   useEffect(() => {
-    if (
-      inputUpdatedRef.current &&
-      props.inputMode &&
-      sign.length + exponent.length + fraction.length === floatInfo[floatType].length
-    ) {
+    if (inputUpdatedRef.current && props.inputMode) {
       inputUpdatedRef.current = false;
       props.onInputChange(sign + exponent + fraction);
     }
