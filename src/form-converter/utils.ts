@@ -49,6 +49,25 @@ export function convertRepresentationOfNumber(
 }
 
 export type FloatType = 'f32' | 'f64';
+export type FloatPartType = 'sign' | 'exponent' | 'fraction';
+
+export const floatInfo: Record<FloatType, { length: number }> = {
+  f32: { length: 32 },
+  f64: { length: 64 },
+};
+
+const floatRegExp: Record<FloatType, Record<FloatPartType, RegExp>> = {
+  f32: {
+    sign: /^[01]{0,1}$/,
+    exponent: /^[01]{0,8}$/,
+    fraction: /^[01]{0,23}$/,
+  },
+  f64: {
+    sign: /^[01]{0,1}$/,
+    exponent: /^[01]{0,11}$/,
+    fraction: /^[01]{0,52}$/,
+  },
+};
 
 export function splitFloat(value: string, floatType: FloatType): [string, string, string] {
   switch (floatType) {
@@ -57,4 +76,13 @@ export function splitFloat(value: string, floatType: FloatType): [string, string
     case 'f64':
       return [value.slice(0, 1), value.slice(1, 12), value.slice(12)];
   }
+}
+
+
+export function checkFloatPart(
+  part: string,
+  floatType: FloatType,
+  floatPartType: FloatPartType
+): boolean {
+  return floatRegExp[floatType][floatPartType].test(part);
 }
