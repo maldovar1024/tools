@@ -1,7 +1,7 @@
 import { Radio } from 'antd';
 import React, { useState, FC } from 'react';
 import { FloatShower } from './float-shower';
-import Label from './label';
+import Label from '../component/label';
 import { convertFormOfNumber, FloatType } from './utils';
 
 const RadioGroup = Radio.Group;

@@ -1,6 +1,6 @@
 import { Input, message } from 'antd';
 import React, { ChangeEventHandler, FC, useEffect, useRef, useState } from 'react';
-import CopyButton from './copy-button';
+import CopyButton from '../component/copy-button';
 import './float-shower.less';
 import { checkFloatPart, floatInfo, FloatType, splitFloat } from './utils';
 
