@@ -1,7 +1,12 @@
-export type ModeOfNumber =
-  | 'd' // 10 进制整数或小数
+export type FloatType =
   | 'f32' // 2 进制表示的 32 位浮点数
   | 'f64'; // 2 进制表示的 64 位浮点数
+
+export type ModeOfNumber =
+  | 'd' // 10 进制整数或小数
+  | FloatType;
+
+export type FloatPartType = 'sign' | 'exponent' | 'fraction';
 
 /**
  * 将表示数字的字符串转换成另一种格式
@@ -47,9 +52,6 @@ export function convertRepresentationOfNumber(
       return dv.getBigUint64(0).toString(2).padStart(64, '0');
   }
 }
-
-export type FloatType = 'f32' | 'f64';
-export type FloatPartType = 'sign' | 'exponent' | 'fraction';
 
 export const floatInfo: Record<FloatType, { length: number }> = {
   f32: { length: 32 },
