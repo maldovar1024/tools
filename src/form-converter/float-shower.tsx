@@ -60,26 +60,28 @@ export const FloatShower: FC<FloatShowerProp> = props => {
   };
 
   return inputMode ? (
-    <div className="float-shower">
-      <Input className="zzy-input sign" value={sign} onChange={handleSignChange} />
+    <div className="float-shower-input">
+      <Input className="sign" value={sign} onChange={handleSignChange} />
       <Input
-        className="zzy-input exponent"
+        className="exponent addon-after"
         value={exponent}
         onChange={handleExponentChange}
+        addonAfter={<span className="input-length">{exponent.length}</span>}
         allowClear
       />
       <Input
-        className="zzy-input fraction"
+        className="fraction addon-after"
         value={fraction}
         onChange={handleFractionChange}
+        addonAfter={<span className="input-length">{fraction.length}</span>}
         allowClear
       />
     </div>
   ) : (
-    <div className="float-shower">
-      <Input className="zzy-input sign" value={sign} />
-      <Input className="zzy-input exponent" value={exponent} />
-      <Input className="zzy-input fraction" value={fraction} />
+    <div className="float-shower-output">
+      <Input className="sign" value={sign} />
+      <Input className="exponent" value={exponent} />
+      <Input className="fraction" value={fraction} />
     </div>
   );
 };
