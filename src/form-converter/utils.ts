@@ -13,8 +13,9 @@ export type FloatPartType = 'sign' | 'exponent' | 'fraction';
  * @param input 表示数字的字符串
  * @param inputMode 输入字符串的格式
  * @param resultMode 输出字符串的格式
+ * @returns 返回转换结果，如果输入无效返回空字符串
  */
-export function convertRepresentationOfNumber(
+export function convertFormOfNumber(
   input: string,
   inputMode: ModeOfNumber,
   resultMode: ModeOfNumber
@@ -26,15 +27,15 @@ export function convertRepresentationOfNumber(
   switch (inputMode) {
     case 'd':
       num = Number.parseFloat(input);
-      if (isNaN(num) && input !== 'NaN' && input !== '-NaN') return null;
+      if (isNaN(num) && input !== 'NaN' && input !== '-NaN') return '';
       break;
     case 'f32':
-      if (!/^[01]{32}$/.test(input)) return null;
+      if (!/^[01]{32}$/.test(input)) return '';
       dv.setUint32(0, Number.parseInt(input, 2));
       num = dv.getFloat32(0);
       break;
     case 'f64':
-      if (!/^[01]{64}$/.test(input)) return null;
+      if (!/^[01]{64}$/.test(input)) return '';
       dv.setUint32(0, Number.parseInt(input.slice(0, 32), 2));
       dv.setUint32(4, Number.parseInt(input.slice(32), 2));
       num = dv.getFloat64(0);
