@@ -64,7 +64,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
   });
 
   const handleCopy = () => {
-    if (total.length === floatLength[floatType].total) {
+    if (total !== '') {
       window.navigator.clipboard
         .writeText(total)
         .then(() => {
@@ -98,11 +98,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
         addonAfter={<span className="input-length">{fraction.length}</span>}
         allowClear
       />
-      <CopyButton
-        disabled={total.length !== floatLength[floatType].total}
-        tip="复制"
-        onCopy={handleCopy}
-      />
+      <CopyButton disabled={total === ''} tip="复制" onCopy={handleCopy} />
       <ClearButton disabled={totalLength === 0} tip="清除全部" onClick={handleClearAll} />
     </div>
   ) : (
@@ -110,11 +106,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
       <Input className="sign" value={sign} readOnly />
       <Input className="exponent" value={exponent} readOnly />
       <Input className="fraction" value={fraction} readOnly />
-      <CopyButton
-        disabled={total.length !== floatLength[floatType].total}
-        tip="复制"
-        onCopy={handleCopy}
-      />
+      <CopyButton disabled={total === ''} tip="复制" onCopy={handleCopy} />
     </div>
   );
 };
