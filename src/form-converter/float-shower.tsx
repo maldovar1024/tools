@@ -1,5 +1,5 @@
 import { Input, message } from 'antd';
-import React, { FC, useEffect, useRef } from 'react';
+import React, { ClipboardEventHandler, FC, useEffect, useRef } from 'react';
 import { ClearButton, CopyButton } from '../component/buttons';
 import './float-shower.less';
 import { useFloat } from './hooks';
@@ -81,11 +81,40 @@ export const FloatShower: FC<FloatShowerProp> = props => {
     inputUpdatedRef.current = true;
   };
 
+  const handlePaste: ClipboardEventHandler<HTMLDivElement> = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const content = e.clipboardData.getData('text');
+    if (checkFloatPart(content, floatType, 'total')) {
+      if (content.length === floatLength[floatType].total) {
+        setTotal(content);
+        inputUpdatedRef.current = true;
+      } else {
+        const target = e.target as HTMLInputElement;
+        const part = target.dataset.part;
+        switch (part) {
+          case 'sign':
+            setSign(content.slice(0, floatLength[floatType].sign));
+            break;
+          case 'exponent':
+            setExponent(content.slice(0, floatLength[floatType].exponent));
+            break;
+          case 'fraction':
+            setFraction(content.slice(0, floatLength[floatType].fraction));
+            break;
+        }
+      }
+    } else {
+      message.error('格式错误', 1);
+    }
+  };
+
   return inputMode ? (
-    <div className="float-shower-input">
-      <Input className="sign" value={sign} onChange={handleSignChange} />
+    <div className="float-shower-input" onPaste={handlePaste}>
+      <Input className="sign" data-part="sign" value={sign} onChange={handleSignChange} />
       <Input
         className="exponent addon-after"
+        data-part="exponent"
         value={exponent}
         onChange={handleExponentChange}
         addonAfter={<span className="input-length">{exponent.length}</span>}
@@ -93,6 +122,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
       />
       <Input
         className="fraction addon-after"
+        data-part="fraction"
         value={fraction}
         onChange={handleFractionChange}
         addonAfter={<span className="input-length">{fraction.length}</span>}
