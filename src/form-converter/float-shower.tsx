@@ -1,8 +1,9 @@
 import { Input, message } from 'antd';
-import React, { ChangeEventHandler, FC, useEffect, useRef, useState } from 'react';
+import React, { ChangeEventHandler, FC, useEffect, useRef } from 'react';
 import CopyButton from '../component/copy-button';
 import './float-shower.less';
-import { checkFloatPart, floatInfo, FloatType, splitFloat } from './utils';
+import { useFloat } from './hooks';
+import { checkFloatPart, floatInfo, FloatType } from './utils';
 
 interface FloatShowerCommonProp {
   value: string;
@@ -16,25 +17,22 @@ type FloatShowerProp = (
   FloatShowerCommonProp;
 
 export const FloatShower: FC<FloatShowerProp> = props => {
-  const { floatType, inputMode } = props;
-  const [sign, setSign] = useState('');
-  const [exponent, setExponent] = useState('');
-  const [fraction, setFraction] = useState('');
+  const { floatType, inputMode, value } = props;
+  const { sign, setSign, exponent, setExponent, fraction, setFraction, total, setTotal } = useFloat(
+    floatType
+  );
   const inputUpdatedRef = useRef(false);
 
   useEffect(() => {
-    const [sign, exponent, fraction] = splitFloat(props.value, floatType);
-    setSign(sign);
-    setExponent(exponent);
-    setFraction(fraction);
-  }, [props.value, floatType]);
+    setTotal(value);
+  }, [value, setTotal]);
 
   useEffect(() => {
     if (inputUpdatedRef.current && props.inputMode) {
       inputUpdatedRef.current = false;
-      props.onInputChange(sign + exponent + fraction);
+      props.onInputChange(total);
     }
-  }, [sign, exponent, fraction, props, floatType]);
+  }, [props, total]);
 
   const handleSignChange: ChangeEventHandler<HTMLInputElement> = e => {
     const part = e.target.value;
@@ -61,10 +59,9 @@ export const FloatShower: FC<FloatShowerProp> = props => {
   };
 
   const handleCopy = () => {
-    const totalInput = sign + exponent + fraction;
-    if (totalInput.length === floatInfo[floatType].length) {
+    if (total.length === floatInfo[floatType].length) {
       window.navigator.clipboard
-        .writeText(totalInput)
+        .writeText(total)
         .then(() => {
           message.success('复制成功', 1);
         })
@@ -92,7 +89,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
         allowClear
       />
       <CopyButton
-        disabled={(sign + exponent + fraction).length !== floatInfo[floatType].length}
+        disabled={total.length !== floatInfo[floatType].length}
         tip="复制"
         onCopy={handleCopy}
       />
@@ -103,7 +100,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
       <Input className="exponent" value={exponent} readOnly />
       <Input className="fraction" value={fraction} readOnly />
       <CopyButton
-        disabled={(sign + exponent + fraction).length !== floatInfo[floatType].length}
+        disabled={total.length !== floatInfo[floatType].length}
         tip="复制"
         onCopy={handleCopy}
       />
