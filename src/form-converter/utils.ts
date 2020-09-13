@@ -56,9 +56,9 @@ export function convertFormOfNumber(
   }
 }
 
-export const floatInfo: Record<FloatType, { length: number }> = {
-  f32: { length: 32 },
-  f64: { length: 64 },
+export const floatLength: Record<FloatType, Record<FloatPartType, number>> = {
+  f32: { total: 32, sign: 1, exponent: 8, fraction: 23 },
+  f64: { total: 64, sign: 1, exponent: 11, fraction: 52 },
 };
 
 const floatRegExp: Record<FloatType, Record<FloatPartType, RegExp>> = {

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { checkFloatPart, floatInfo, FloatType, splitFloat } from './utils';
+import { checkFloatPart, floatLength, FloatType, splitFloat } from './utils';
 
 export function useFloat(floatType: FloatType) {
   const [sign, setSign] = useState('');
@@ -14,7 +14,7 @@ export function useFloat(floatType: FloatType) {
         setFraction('');
       } else if (
         checkFloatPart(value, floatType, 'total') &&
-        value.length === floatInfo[floatType].length
+        value.length === floatLength[floatType].total
       ) {
         const [sign, exponent, fraction] = splitFloat(value, floatType);
         setSign(sign);
@@ -36,7 +36,7 @@ export function useFloat(floatType: FloatType) {
     setFraction,
     get total() {
       const total = sign + exponent + fraction;
-      return total.length === floatInfo[floatType].length ? total : '';
+      return total.length === floatLength[floatType].total ? total : '';
     },
     get totalLength() {
       return (sign + exponent + fraction).length;

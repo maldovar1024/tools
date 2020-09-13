@@ -3,7 +3,7 @@ import React, { FC, useEffect, useRef } from 'react';
 import { ClearButton, CopyButton } from '../component/buttons';
 import './float-shower.less';
 import { useFloat } from './hooks';
-import { checkFloatPart, floatInfo, FloatType, onInputChangeWrapper } from './utils';
+import { checkFloatPart, floatLength, FloatType, onInputChangeWrapper } from './utils';
 
 interface FloatShowerCommonProp {
   value: string;
@@ -64,7 +64,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
   });
 
   const handleCopy = () => {
-    if (total.length === floatInfo[floatType].length) {
+    if (total.length === floatLength[floatType].total) {
       window.navigator.clipboard
         .writeText(total)
         .then(() => {
@@ -99,7 +99,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
         allowClear
       />
       <CopyButton
-        disabled={total.length !== floatInfo[floatType].length}
+        disabled={total.length !== floatLength[floatType].total}
         tip="复制"
         onCopy={handleCopy}
       />
@@ -111,7 +111,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
       <Input className="exponent" value={exponent} readOnly />
       <Input className="fraction" value={fraction} readOnly />
       <CopyButton
-        disabled={total.length !== floatInfo[floatType].length}
+        disabled={total.length !== floatLength[floatType].total}
         tip="复制"
         onCopy={handleCopy}
       />
