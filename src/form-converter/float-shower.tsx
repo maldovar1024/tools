@@ -1,5 +1,5 @@
 import { Input, message } from 'antd';
-import React, { ClipboardEventHandler, FC, useEffect, useRef } from 'react';
+import React, { ClipboardEventHandler, FC, useEffect } from 'react';
 import { ClearButton, CopyButton } from '../component/buttons';
 import './float-shower.less';
 import { useFloat } from './hooks';
@@ -28,38 +28,34 @@ export const FloatShower: FC<FloatShowerProp> = props => {
     total,
     totalLength,
     setTotal,
+    hasInputted,
   } = useFloat(floatType);
-  const inputUpdatedRef = useRef(false);
 
   useEffect(() => {
     setTotal(value);
   }, [value, setTotal]);
 
   useEffect(() => {
-    if (inputUpdatedRef.current && props.inputMode) {
-      inputUpdatedRef.current = false;
+    if (hasInputted && props.inputMode) {
       props.onInputChange(total);
     }
-  }, [props, total]);
+  }, [props, total, hasInputted]);
 
   const handleSignChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'sign')) {
       setSign(part);
-      inputUpdatedRef.current = true;
     }
   });
 
   const handleExponentChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'exponent')) {
       setExponent(part);
-      inputUpdatedRef.current = true;
     }
   });
 
   const handleFractionChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'fraction')) {
       setFraction(part);
-      inputUpdatedRef.current = true;
     }
   });
 
@@ -77,8 +73,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
   };
 
   const handleClearAll = () => {
-    setTotal('');
-    inputUpdatedRef.current = true;
+    setTotal('', true);
   };
 
   const handlePaste: ClipboardEventHandler<HTMLDivElement> = e => {
@@ -87,8 +82,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
     const content = e.clipboardData.getData('text');
     if (checkFloatPart(content, floatType, 'total')) {
       if (content.length === floatLength[floatType].total) {
-        setTotal(content);
-        inputUpdatedRef.current = true;
+        setTotal(content, true);
       } else {
         const target = e.target as HTMLInputElement;
         const part = target.dataset.part;
