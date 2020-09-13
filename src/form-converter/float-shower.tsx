@@ -16,7 +16,7 @@ type FloatShowerProp = (
 ) &
   FloatShowerCommonProp;
 
-export const FloatShower: FC<FloatShowerProp> = props => {
+const FloatShower: FC<FloatShowerProp> = props => {
   const { floatType, inputMode, value } = props;
   const {
     sign,
@@ -134,3 +134,5 @@ export const FloatShower: FC<FloatShowerProp> = props => {
     </div>
   );
 };
+
+export default FloatShower;

@@ -22,7 +22,7 @@ type RadixConverterShowerProp = (
 const partRadixes = [2, 8, 10, 16]; // 单选框可用的进制
 const allRadixes = [...range(2, 37)]; // 全部进制
 
-export const RadixConverterShower: FC<RadixConverterShowerProp> = props => (
+const RadixConverterShower: FC<RadixConverterShowerProp> = props => (
   <div className={props.className}>
     <div className="selection">
       <RadioGroup value={props.radix} onChange={e => props.onRadixChange(e.target.value)}>
@@ -52,3 +52,5 @@ export const RadixConverterShower: FC<RadixConverterShowerProp> = props => (
     )}
   </div>
 );
+
+export default RadixConverterShower;
