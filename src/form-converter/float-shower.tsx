@@ -1,6 +1,6 @@
 import { Input, message } from 'antd';
 import React, { ChangeEventHandler, FC, useEffect, useRef } from 'react';
-import CopyButton from '../component/copy-button';
+import { ClearButton, CopyButton } from '../component/buttons';
 import './float-shower.less';
 import { useFloat } from './hooks';
 import { checkFloatPart, floatInfo, FloatType } from './utils';
@@ -18,9 +18,17 @@ type FloatShowerProp = (
 
 export const FloatShower: FC<FloatShowerProp> = props => {
   const { floatType, inputMode, value } = props;
-  const { sign, setSign, exponent, setExponent, fraction, setFraction, total, setTotal } = useFloat(
-    floatType
-  );
+  const {
+    sign,
+    setSign,
+    exponent,
+    setExponent,
+    fraction,
+    setFraction,
+    total,
+    totalLength,
+    setTotal,
+  } = useFloat(floatType);
   const inputUpdatedRef = useRef(false);
 
   useEffect(() => {
@@ -71,6 +79,11 @@ export const FloatShower: FC<FloatShowerProp> = props => {
     }
   };
 
+  const handleClearAll = () => {
+    setTotal('');
+    inputUpdatedRef.current = true;
+  };
+
   return inputMode ? (
     <div className="float-shower-input">
       <Input className="sign" value={sign} onChange={handleSignChange} />
@@ -93,6 +106,7 @@ export const FloatShower: FC<FloatShowerProp> = props => {
         tip="复制"
         onCopy={handleCopy}
       />
+      <ClearButton disabled={totalLength === 0} tip="清除全部" onClick={handleClearAll} />
     </div>
   ) : (
     <div className="float-shower-output">
