@@ -48,11 +48,7 @@ export const RadixConverterShower: FC<RadixConverterShowerProp> = props => (
         onChange={e => props.onInputChange(e.target.value)}
       />
     ) : (
-      <Input
-        value={props.value}
-        addonBefore={props.addonBefore}
-        readOnly={true}
-      />
+      <Input value={props.value} addonBefore={props.addonBefore} readOnly />
     )}
   </div>
 );

@@ -99,9 +99,9 @@ export const FloatShower: FC<FloatShowerProp> = props => {
     </div>
   ) : (
     <div className="float-shower-output">
-      <Input className="sign" value={sign} />
-      <Input className="exponent" value={exponent} />
-      <Input className="fraction" value={fraction} />
+      <Input className="sign" value={sign} readOnly />
+      <Input className="exponent" value={exponent} readOnly />
+      <Input className="fraction" value={fraction} readOnly />
       <CopyButton
         disabled={(sign + exponent + fraction).length !== floatInfo[floatType].length}
         tip="复制"
