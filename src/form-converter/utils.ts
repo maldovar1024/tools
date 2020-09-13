@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from 'react';
+
 export type FloatType =
   | 'f32' // 2 进制表示的 32 位浮点数
   | 'f64'; // 2 进制表示的 64 位浮点数
@@ -89,4 +91,10 @@ export function checkFloatPart(
   floatPartType: FloatPartType
 ): boolean {
   return floatRegExp[floatType][floatPartType].test(part);
+}
+
+export function onInputChangeWrapper(
+  fn: (input: string) => void
+): ChangeEventHandler<HTMLInputElement> {
+  return e => fn(e.target.value);
 }

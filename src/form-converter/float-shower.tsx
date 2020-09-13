@@ -1,9 +1,9 @@
 import { Input, message } from 'antd';
-import React, { ChangeEventHandler, FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { ClearButton, CopyButton } from '../component/buttons';
 import './float-shower.less';
 import { useFloat } from './hooks';
-import { checkFloatPart, floatInfo, FloatType } from './utils';
+import { checkFloatPart, floatInfo, FloatType, onInputChangeWrapper } from './utils';
 
 interface FloatShowerCommonProp {
   value: string;
@@ -42,29 +42,26 @@ export const FloatShower: FC<FloatShowerProp> = props => {
     }
   }, [props, total]);
 
-  const handleSignChange: ChangeEventHandler<HTMLInputElement> = e => {
-    const part = e.target.value;
-    if (checkFloatPart(part, props.floatType, 'sign')) {
+  const handleSignChange = onInputChangeWrapper(part => {
+    if (checkFloatPart(part, floatType, 'sign')) {
       setSign(part);
       inputUpdatedRef.current = true;
     }
-  };
+  });
 
-  const handleExponentChange: ChangeEventHandler<HTMLInputElement> = e => {
-    const part = e.target.value;
-    if (checkFloatPart(part, props.floatType, 'exponent')) {
+  const handleExponentChange = onInputChangeWrapper(part => {
+    if (checkFloatPart(part, floatType, 'exponent')) {
       setExponent(part);
       inputUpdatedRef.current = true;
     }
-  };
+  });
 
-  const handleFractionChange: ChangeEventHandler<HTMLInputElement> = e => {
-    const part = e.target.value;
+  const handleFractionChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'fraction')) {
       setFraction(part);
       inputUpdatedRef.current = true;
     }
-  };
+  });
 
   const handleCopy = () => {
     if (total.length === floatInfo[floatType].length) {
