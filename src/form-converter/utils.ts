@@ -6,7 +6,7 @@ export type ModeOfNumber =
   | 'd' // 10 进制整数或小数
   | FloatType;
 
-export type FloatPartType = 'sign' | 'exponent' | 'fraction';
+export type FloatPartType = 'sign' | 'exponent' | 'fraction' | 'total';
 
 /**
  * 将表示数字的字符串转换成另一种格式
@@ -64,11 +64,13 @@ const floatRegExp: Record<FloatType, Record<FloatPartType, RegExp>> = {
     sign: /^[01]{0,1}$/,
     exponent: /^[01]{0,8}$/,
     fraction: /^[01]{0,23}$/,
+    total: /^[01]{0,32}$/,
   },
   f64: {
     sign: /^[01]{0,1}$/,
     exponent: /^[01]{0,11}$/,
     fraction: /^[01]{0,52}$/,
+    total: /^[01]{0,64}$/,
   },
 };
 
@@ -80,7 +82,6 @@ export function splitFloat(value: string, floatType: FloatType): [string, string
       return [value.slice(0, 1), value.slice(1, 12), value.slice(12)];
   }
 }
-
 
 export function checkFloatPart(
   part: string,
