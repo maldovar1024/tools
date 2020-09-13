@@ -38,6 +38,9 @@ export function useFloat(floatType: FloatType) {
       const total = sign + exponent + fraction;
       return total.length === floatInfo[floatType].length ? total : '';
     },
+    get totalLength() {
+      return (sign + exponent + fraction).length;
+    },
     setTotal,
   };
 }
