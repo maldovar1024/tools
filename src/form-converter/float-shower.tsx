@@ -8,6 +8,7 @@ import { checkFloatPart, floatLength, FloatType, onInputChangeWrapper } from './
 interface FloatShowerCommonProp {
   value: string;
   floatType: FloatType;
+  addonBefore: string;
 }
 
 type FloatShowerProp = (
@@ -104,8 +105,14 @@ const FloatShower: FC<FloatShowerProp> = props => {
   };
 
   return inputMode ? (
-    <div className="float-shower-input" onPaste={handlePaste}>
-      <Input className="sign" data-part="sign" value={sign} onChange={handleSignChange} />
+    <div className="float-shower input" onPaste={handlePaste}>
+      <Input
+        className="sign addon-before"
+        data-part="sign"
+        value={sign}
+        addonBefore={props.addonBefore}
+        onChange={handleSignChange}
+      />
       <Input
         className="exponent addon-after"
         data-part="exponent"
@@ -126,8 +133,8 @@ const FloatShower: FC<FloatShowerProp> = props => {
       <ClearButton disabled={totalLength === 0} tip="清除全部" onClick={handleClearAll} />
     </div>
   ) : (
-    <div className="float-shower-output">
-      <Input className="sign" value={sign} readOnly />
+    <div className="float-shower output">
+      <Input className="sign addon-before" value={sign} addonBefore={props.addonBefore} readOnly />
       <Input className="exponent" value={exponent} readOnly />
       <Input className="fraction" value={fraction} readOnly />
       <CopyButton disabled={total === ''} tip="复制" onCopy={handleCopy} />

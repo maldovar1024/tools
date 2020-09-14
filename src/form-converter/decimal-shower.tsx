@@ -4,6 +4,7 @@ import { onInputChangeWrapper } from './utils';
 
 interface DecimalShowerCommonProp {
   value: string;
+  addonBefore: string;
 }
 
 type DecimalShowerProp = (
@@ -18,6 +19,7 @@ const DecimalShower: FC<DecimalShowerProp> = props => {
       className="decimal-shower"
       value={props.value}
       readOnly={!props.inputMode}
+      addonBefore={props.addonBefore}
       onChange={props.inputMode ? onInputChangeWrapper(props.onInputChange) : undefined}
       allowClear
     />

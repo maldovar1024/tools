@@ -1,6 +1,5 @@
 import { Radio } from 'antd';
 import React, { FC, useState } from 'react';
-import Label from '../component/label';
 import DecimalShower from './decimal-shower';
 import FloatShower from './float-shower';
 import { convertFormOfNumber, ModeOfNumber } from './utils';
@@ -48,13 +47,18 @@ export const FormConverter: FC = () => {
               <Radio value="f64">64 位浮点数</Radio>
             </RadioGroup>
           </div>
-          <Label>输入数字</Label>
           {inputMode === 'd' ? (
-            <DecimalShower inputMode={true} value={input} onInputChange={handleInputChange} />
+            <DecimalShower
+              inputMode={true}
+              value={input}
+              addonBefore="输入数字"
+              onInputChange={handleInputChange}
+            />
           ) : (
             <FloatShower
               inputMode={true}
               value={input}
+              addonBefore="输入数字"
               onInputChange={handleInputChange}
               floatType={inputMode}
             />
@@ -68,11 +72,15 @@ export const FormConverter: FC = () => {
               <Radio value="f64">64 位浮点数</Radio>
             </RadioGroup>
           </div>
-          <Label>转换结果</Label>
           {resultMode === 'd' ? (
-            <DecimalShower inputMode={false} value={result} />
+            <DecimalShower inputMode={false} value={result} addonBefore="转换结果" />
           ) : (
-            <FloatShower inputMode={false} value={result} floatType={resultMode} />
+            <FloatShower
+              inputMode={false}
+              value={result}
+              addonBefore="转换结果"
+              floatType={resultMode}
+            />
           )}
         </div>
       </div>

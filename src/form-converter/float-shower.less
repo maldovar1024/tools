@@ -1,18 +1,20 @@
-.float-shower-input {
-  display: inline-block;
-
-  .sign {
-    width: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: 10px;
-  }
-
-  .addon-after {
+.float-shower {
+  .addon-after,
+  .addon-before {
     width: fit-content;
   }
 
-  .ant-input-group-wrapper {
+  .sign {
+    .ant-input {
+      width: 30px;
+    }
+  }
+}
+
+.float-shower.input {
+  display: inline-block;
+
+  .ant-input-group-wrapper.addon-after {
     margin-left: 10px;
 
     .ant-input-group-addon {
@@ -43,26 +45,20 @@
   }
 }
 
-.float-shower-output {
+.float-shower.output {
   display: inline-block;
 
-  .ant-input {
+  & > .ant-input {
     padding-left: 6px;
     padding-right: 6px;
     margin-left: 10px;
   }
 
-  .sign {
-    width: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
   .exponent {
-    width: 120px;
+    width: 100px;
   }
 
   .fraction {
-    width: 440px;
+    width: 410px;
   }
 }
