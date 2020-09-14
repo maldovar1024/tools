@@ -105,7 +105,7 @@ const FloatShower: FC<FloatShowerProp> = props => {
   };
 
   return inputMode ? (
-    <div className="float-shower input" onPaste={handlePaste}>
+    <div className="float-shower float-shower-input" onPaste={handlePaste}>
       <Input
         className="sign addon-before"
         data-part="sign"
@@ -133,7 +133,7 @@ const FloatShower: FC<FloatShowerProp> = props => {
       <ClearButton disabled={totalLength === 0} tip="清除全部" onClick={handleClearAll} />
     </div>
   ) : (
-    <div className="float-shower output">
+    <div className="float-shower float-shower-output">
       <Input className="sign addon-before" value={sign} addonBefore={props.addonBefore} readOnly />
       <Input className="exponent" value={exponent} readOnly />
       <Input className="fraction" value={fraction} readOnly />

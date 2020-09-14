@@ -2,6 +2,7 @@ import { Radio } from 'antd';
 import React, { FC, useState } from 'react';
 import DecimalShower from './decimal-shower';
 import FloatShower from './float-shower';
+import './index.less';
 import { convertFormOfNumber, ModeOfNumber } from './utils';
 
 const RadioGroup = Radio.Group;
