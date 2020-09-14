@@ -14,11 +14,16 @@ export const FormConverter: FC = () => {
   const [resultMode, setResultMode] = useState<ModeOfNumber>('f32');
 
   const handleInputChange = (input: string) => {
-    const result = convertFormOfNumber(input, inputMode, resultMode);
-    if (result !== '') {
-      setInput(input);
+    if (input === '') {
+      setInput('');
+      setResult('');
+    } else {
+      const result = convertFormOfNumber(input, inputMode, resultMode);
+      if (result !== '') {
+        setInput(input);
+      }
+      setResult(result);
     }
-    setResult(result);
   };
 
   const handleInputModeChange = (mode: ModeOfNumber) => {
