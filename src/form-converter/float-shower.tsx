@@ -19,28 +19,24 @@ type FloatShowerProp = (
 
 const FloatShower: FC<FloatShowerProp> = props => {
   const { floatType, inputMode, value } = props;
-  const {
-    sign,
-    setSign,
-    exponent,
-    setExponent,
-    fraction,
-    setFraction,
-    total,
-    totalLength,
-    setTotal,
-    hasInputted,
-  } = useFloat(floatType);
+  const { sign, setSign, exponent, setExponent, fraction, setFraction, total, setTotal } = useFloat(
+    floatType
+  );
 
   useEffect(() => {
-    setTotal(value);
-  }, [value, setTotal]);
+    if (!inputMode) {
+      setTotal(value);
+    } else if (value === '') {
+      // 输入模式下只有 value 为空时设置
+      setTotal(value);
+    }
+  }, [inputMode, value, setTotal]);
 
   useEffect(() => {
-    if (hasInputted && props.inputMode) {
+    if (props.inputMode) {
       props.onInputChange(total);
     }
-  }, [props, total, hasInputted]);
+  }, [props, total]);
 
   const handleSignChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'sign')) {
@@ -61,7 +57,7 @@ const FloatShower: FC<FloatShowerProp> = props => {
   });
 
   const handleCopy = () => {
-    if (total !== '') {
+    if (total.length === floatLength[floatType].total) {
       window.navigator.clipboard
         .writeText(total)
         .then(() => {
@@ -74,7 +70,7 @@ const FloatShower: FC<FloatShowerProp> = props => {
   };
 
   const handleClearAll = () => {
-    setTotal('', true);
+    setTotal('');
   };
 
   const handlePaste: ClipboardEventHandler<HTMLDivElement> = e => {
@@ -83,7 +79,7 @@ const FloatShower: FC<FloatShowerProp> = props => {
     const content = e.clipboardData.getData('text');
     if (checkFloatPart(content, floatType, 'total')) {
       if (content.length === floatLength[floatType].total) {
-        setTotal(content, true);
+        setTotal(content);
       } else {
         const target = e.target as HTMLInputElement;
         const part = target.dataset.part;
@@ -129,15 +125,23 @@ const FloatShower: FC<FloatShowerProp> = props => {
         addonAfter={<span className="input-length">{fraction.length}</span>}
         allowClear
       />
-      <CopyButton disabled={total === ''} tip="复制" onCopy={handleCopy} />
-      <ClearButton disabled={totalLength === 0} tip="清除全部" onClick={handleClearAll} />
+      <CopyButton
+        disabled={total.length !== floatLength[floatType].total}
+        tip="复制"
+        onCopy={handleCopy}
+      />
+      <ClearButton disabled={total.length === 0} tip="清除全部" onClick={handleClearAll} />
     </div>
   ) : (
     <div className="float-shower float-shower-output">
       <Input className="sign addon-before" value={sign} addonBefore={props.addonBefore} readOnly />
       <Input className="exponent" value={exponent} readOnly />
       <Input className="fraction" value={fraction} readOnly />
-      <CopyButton disabled={total === ''} tip="复制" onCopy={handleCopy} />
+      <CopyButton
+        disabled={total.length !== floatLength[floatType].total}
+        tip="复制"
+        onCopy={handleCopy}
+      />
     </div>
   );
 };
