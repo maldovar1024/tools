@@ -11,6 +11,7 @@ const DecimalOutput: FC<DecimalOutputProp> = props => (
     className="decimal-shower"
     value={props.value}
     addonBefore={props.addonBefore}
+    readOnly
     allowClear
   />
 );
