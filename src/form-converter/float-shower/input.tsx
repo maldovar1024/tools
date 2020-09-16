@@ -1,5 +1,5 @@
 import { Input, message } from 'antd';
-import React, { ClipboardEventHandler, FC, useEffect } from 'react';
+import React, { ClipboardEventHandler, FC, useEffect, useRef } from 'react';
 import { ClearButton, CopyButton } from '../../component/buttons';
 import { useFloat } from './hooks';
 import { checkFloatPart, floatLength, FloatType, onInputChangeWrapper } from '../utils';
@@ -16,6 +16,8 @@ const FloatInput: FC<FloatInputProp> = props => {
   const { sign, setSign, exponent, setExponent, fraction, setFraction, total, setTotal } = useFloat(
     floatType
   );
+  const exponentInputRef = useRef<Input>(null);
+  const fractionInputRef = useRef<Input>(null);
 
   useEffect(() => {
     if (value === '') {
@@ -31,12 +33,18 @@ const FloatInput: FC<FloatInputProp> = props => {
   const handleSignChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'sign')) {
       setSign(part);
+      if (part.length === floatLength[floatType].sign && exponentInputRef.current) {
+        exponentInputRef.current.focus();
+      }
     }
   });
 
   const handleExponentChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'exponent')) {
       setExponent(part);
+      if (part.length === floatLength[floatType].exponent && fractionInputRef.current) {
+        fractionInputRef.current.focus();
+      }
     }
   });
 
@@ -100,6 +108,7 @@ const FloatInput: FC<FloatInputProp> = props => {
       <Input
         className="exponent addon-after"
         data-part="exponent"
+        ref={exponentInputRef}
         value={exponent}
         onChange={handleExponentChange}
         addonAfter={<span className="input-length">{exponent.length}</span>}
@@ -108,6 +117,7 @@ const FloatInput: FC<FloatInputProp> = props => {
       <Input
         className="fraction addon-after"
         data-part="fraction"
+        ref={fractionInputRef}
         value={fraction}
         onChange={handleFractionChange}
         addonAfter={<span className="input-length">{fraction.length}</span>}
