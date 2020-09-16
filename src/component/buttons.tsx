@@ -9,7 +9,7 @@ interface CopyButtonProp {
 }
 
 export const CopyButton: FC<CopyButtonProp> = ({ disabled, onCopy, tip }) => (
-  <Tooltip title={tip} color="cyan">
+  <Tooltip title={tip} color="#7DBCEA">
     <Button disabled={disabled} icon={<CopyOutlined />} onClick={onCopy} />
   </Tooltip>
 );
@@ -21,7 +21,7 @@ interface ClearButtonProp {
 }
 
 export const ClearButton: FC<ClearButtonProp> = ({ disabled, onClick, tip }) => (
-  <Tooltip title={tip} color="cyan">
+  <Tooltip title={tip} color="#7DBCEA">
     <Button
       disabled={disabled}
       style={{ color: 'rgba(0, 0, 0, 0.25)' }}
