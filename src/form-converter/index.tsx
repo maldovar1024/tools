@@ -14,11 +14,16 @@ export const FormConverter: FC = () => {
   const [resultMode, setResultMode] = useState<ModeOfNumber>('f32');
 
   const handleInputChange = (input: string) => {
-    setInput(input);
     if (input === '') {
+      setInput('');
       setResult('');
     } else {
-      setResult(convertFormOfNumber(input, inputMode, resultMode));
+      const result = convertFormOfNumber(input, inputMode, resultMode);
+      setResult(result);
+      if (inputMode !== 'd' || result !== '') {
+        // 浮点数模式下总是设置 input，十进制数模式下只有输入格式正确才设置 input
+        setInput(input);
+      }
     }
   };
 
