@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { checkFloatPart, floatLength, FloatType, splitFloat } from './utils';
+import { checkFloatPart, floatLength, FloatType, splitFloat } from '../utils';
 
 export function useFloat(floatType: FloatType) {
   const [sign, setSign] = useState('');

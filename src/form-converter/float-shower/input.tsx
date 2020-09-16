@@ -1,42 +1,32 @@
 import { Input, message } from 'antd';
 import React, { ClipboardEventHandler, FC, useEffect } from 'react';
-import { ClearButton, CopyButton } from '../component/buttons';
-import './float-shower.less';
+import { ClearButton, CopyButton } from '../../component/buttons';
 import { useFloat } from './hooks';
-import { checkFloatPart, floatLength, FloatType, onInputChangeWrapper } from './utils';
+import { checkFloatPart, floatLength, FloatType, onInputChangeWrapper } from '../utils';
 
-interface FloatShowerCommonProp {
+interface FloatInputProp {
   value: string;
   floatType: FloatType;
   addonBefore: string;
+  onInputChange: (input: string) => void;
 }
 
-type FloatShowerProp = (
-  | { inputMode: true; onInputChange: (input: string) => void }
-  | { inputMode: false }
-) &
-  FloatShowerCommonProp;
-
-const FloatShower: FC<FloatShowerProp> = props => {
-  const { floatType, inputMode, value } = props;
+const FloatInput: FC<FloatInputProp> = props => {
+  const { floatType, value, addonBefore, onInputChange } = props;
   const { sign, setSign, exponent, setExponent, fraction, setFraction, total, setTotal } = useFloat(
     floatType
   );
 
   useEffect(() => {
-    if (!inputMode) {
-      setTotal(value);
-    } else if (value === '') {
+    if (value === '') {
       // 输入模式下只有 value 为空时设置
       setTotal(value);
     }
-  }, [inputMode, value, setTotal]);
+  }, [value, setTotal]);
 
   useEffect(() => {
-    if (props.inputMode) {
-      props.onInputChange(total);
-    }
-  }, [props, total]);
+    onInputChange(total);
+  }, [onInputChange, total]);
 
   const handleSignChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'sign')) {
@@ -69,9 +59,7 @@ const FloatShower: FC<FloatShowerProp> = props => {
     }
   };
 
-  const handleClearAll = () => {
-    setTotal('');
-  };
+  const handleClearAll = () => setTotal('');
 
   const handlePaste: ClipboardEventHandler<HTMLDivElement> = e => {
     e.preventDefault();
@@ -100,13 +88,13 @@ const FloatShower: FC<FloatShowerProp> = props => {
     }
   };
 
-  return inputMode ? (
+  return (
     <div className="float-shower float-shower-input" onPaste={handlePaste}>
       <Input
         className="sign addon-before"
         data-part="sign"
         value={sign}
-        addonBefore={props.addonBefore}
+        addonBefore={addonBefore}
         onChange={handleSignChange}
       />
       <Input
@@ -132,18 +120,7 @@ const FloatShower: FC<FloatShowerProp> = props => {
       />
       <ClearButton disabled={total.length === 0} tip="清除全部" onClick={handleClearAll} />
     </div>
-  ) : (
-    <div className="float-shower float-shower-output">
-      <Input className="sign addon-before" value={sign} addonBefore={props.addonBefore} readOnly />
-      <Input className="exponent" value={exponent} readOnly />
-      <Input className="fraction" value={fraction} readOnly />
-      <CopyButton
-        disabled={total.length !== floatLength[floatType].total}
-        tip="复制"
-        onCopy={handleCopy}
-      />
-    </div>
   );
 };
 
-export default FloatShower;
+export default FloatInput;

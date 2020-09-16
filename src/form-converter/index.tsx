@@ -1,7 +1,7 @@
 import { Radio } from 'antd';
 import React, { FC, useState } from 'react';
 import DecimalShower from './decimal-shower';
-import FloatShower from './float-shower';
+import { FloatInput, FloatOutput } from './float-shower';
 import './index.less';
 import { convertFormOfNumber, ModeOfNumber } from './utils';
 
@@ -57,8 +57,7 @@ export const FormConverter: FC = () => {
               onInputChange={handleInputChange}
             />
           ) : (
-            <FloatShower
-              inputMode={true}
+            <FloatInput
               value={input}
               addonBefore="输入数字"
               onInputChange={handleInputChange}
@@ -77,12 +76,7 @@ export const FormConverter: FC = () => {
           {resultMode === 'd' ? (
             <DecimalShower inputMode={false} value={result} addonBefore="转换结果" />
           ) : (
-            <FloatShower
-              inputMode={false}
-              value={result}
-              addonBefore="转换结果"
-              floatType={resultMode}
-            />
+            <FloatOutput value={result} addonBefore="转换结果" floatType={resultMode} />
           )}
         </div>
       </div>
