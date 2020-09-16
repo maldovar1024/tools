@@ -1,6 +1,6 @@
 import { Radio } from 'antd';
 import React, { FC, useState } from 'react';
-import DecimalShower from './decimal-shower';
+import { DecimalInput, DecimalOutput } from './decimal-shower';
 import { FloatInput, FloatOutput } from './float-shower';
 import './index.less';
 import { convertFormOfNumber, ModeOfNumber } from './utils';
@@ -55,12 +55,7 @@ export const FormConverter: FC = () => {
             </RadioGroup>
           </div>
           {inputMode === 'd' ? (
-            <DecimalShower
-              inputMode={true}
-              value={input}
-              addonBefore="输入数字"
-              onInputChange={handleInputChange}
-            />
+            <DecimalInput value={input} addonBefore="输入数字" onInputChange={handleInputChange} />
           ) : (
             <FloatInput
               value={input}
@@ -79,7 +74,7 @@ export const FormConverter: FC = () => {
             </RadioGroup>
           </div>
           {resultMode === 'd' ? (
-            <DecimalShower inputMode={false} value={result} addonBefore="转换结果" />
+            <DecimalOutput value={result} addonBefore="转换结果" />
           ) : (
             <FloatOutput value={result} addonBefore="转换结果" floatType={resultMode} />
           )}
