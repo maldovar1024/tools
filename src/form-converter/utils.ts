@@ -15,13 +15,13 @@ export type FloatPartType = 'sign' | 'exponent' | 'fraction' | 'total';
  * @param input 表示数字的字符串
  * @param inputMode 输入字符串的格式
  * @param resultMode 输出字符串的格式
- * @returns 返回转换结果，如果输入无效返回空字符串
+ * @returns 返回转换结果，输入为空时返回`空字符串`，输入无效时返回 `null`
  */
 export function convertFormOfNumber(
   input: string,
   inputMode: ModeOfNumber,
   resultMode: ModeOfNumber
-): string {
+): string | null {
   if (input === '') return '';
   if (inputMode === resultMode) return input;
 
@@ -32,15 +32,15 @@ export function convertFormOfNumber(
   switch (inputMode) {
     case 'd':
       num = Number(input);
-      if (isNaN(num) && !/^[-+]?NaN$/.test(input)) return '';
+      if (isNaN(num) && !/^[-+]?NaN$/.test(input)) return null;
       break;
     case 'f32':
-      if (!/^[01]{32}$/.test(input)) return '';
+      if (!/^[01]{32}$/.test(input)) return null;
       dv.setUint32(0, Number.parseInt(input, 2));
       num = dv.getFloat32(0);
       break;
     case 'f64':
-      if (!/^[01]{64}$/.test(input)) return '';
+      if (!/^[01]{64}$/.test(input)) return null;
       dv.setUint32(0, Number.parseInt(input.slice(0, 32), 2));
       dv.setUint32(4, Number.parseInt(input.slice(32), 2));
       num = dv.getFloat64(0);
