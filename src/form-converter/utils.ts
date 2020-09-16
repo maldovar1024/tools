@@ -21,15 +21,18 @@ export function convertFormOfNumber(
   input: string,
   inputMode: ModeOfNumber,
   resultMode: ModeOfNumber
-) {
+): string {
+  if (input === '') return '';
+  if (inputMode === resultMode) return input;
+
   const buffer = new ArrayBuffer(8);
   const dv = new DataView(buffer);
 
   let num: number;
   switch (inputMode) {
     case 'd':
-      num = Number.parseFloat(input);
-      if (isNaN(num) && input !== 'NaN' && input !== '-NaN') return '';
+      num = Number(input);
+      if (isNaN(num) && !/^[-+]?NaN$/.test(input)) return '';
       break;
     case 'f32':
       if (!/^[01]{32}$/.test(input)) return '';
