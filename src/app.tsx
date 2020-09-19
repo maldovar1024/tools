@@ -14,7 +14,7 @@ export default function App(): JSX.Element {
   return (
     <Layout className="App">
       <Sider>
-        <Menu mode="inline" selectedKeys={[location.pathname]}>
+        <Menu theme="dark" mode="inline" selectedKeys={[location.pathname]}>
           <Item key="/">
             <Link to="/">简介</Link>
           </Item>
