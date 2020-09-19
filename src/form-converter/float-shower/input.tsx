@@ -1,17 +1,18 @@
 import { Input, message } from 'antd';
-import React, { ClipboardEventHandler, FC, useEffect, useRef } from 'react';
+import React, { ClipboardEventHandler, forwardRef, useEffect, useRef } from 'react';
 import { ClearButton, CopyButton } from '../../component/buttons';
-import { useFloat } from './hooks';
 import { checkFloatPart, floatLength, FloatType, onInputChangeWrapper } from '../utils';
+import { useFloat } from './hooks';
 
 interface FloatInputProp {
   value: string;
   floatType: FloatType;
   addonBefore: string;
+  autoFocus?: boolean;
   onInputChange: (input: string) => void;
 }
 
-const FloatInput: FC<FloatInputProp> = props => {
+const FloatInput = forwardRef<Input, FloatInputProp>((props, ref) => {
   const { floatType, value, addonBefore, onInputChange } = props;
   const { sign, setSign, exponent, setExponent, fraction, setFraction, total, setTotal } = useFloat(
     floatType
@@ -99,10 +100,12 @@ const FloatInput: FC<FloatInputProp> = props => {
   return (
     <div className="float-shower float-shower-input" onPaste={handlePaste}>
       <Input
+        ref={ref}
         className="sign addon-before"
         data-part="sign"
         value={sign}
         addonBefore={addonBefore}
+        autoFocus={props.autoFocus}
         onChange={handleSignChange}
       />
       <Input
@@ -131,6 +134,6 @@ const FloatInput: FC<FloatInputProp> = props => {
       <ClearButton disabled={total.length === 0} tip="清除全部" onClick={handleClearAll} />
     </div>
   );
-};
+});
 
 export default FloatInput;

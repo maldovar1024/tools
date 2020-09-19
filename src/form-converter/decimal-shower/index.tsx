@@ -18,6 +18,7 @@ type DecimalShowerProps = (
 const DecimalShower = forwardRef<Input, DecimalShowerProps>((props, ref) =>
   props.inputMode ? (
     <Input
+      ref={ref}
       className={classnames('decimal-shower', { error: props.error })}
       value={props.value}
       addonBefore={props.addonBefore}

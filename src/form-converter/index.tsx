@@ -1,6 +1,6 @@
-import { Radio } from 'antd';
+import { Input, Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio/interface';
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import DecimalShower from './decimal-shower';
 import { FloatInput, FloatOutput } from './float-shower';
 import './index.less';
@@ -16,6 +16,7 @@ export const FormConverter: FC = () => {
   const [result, setResult] = useState('');
   const [inputMode, setInputMode] = useState<ModeOfNumber>('d');
   const [resultMode, setResultMode] = useState<ModeOfNumber>('f32');
+  const inputRef = useRef<Input>(null);
 
   const handleInputChange = (input: string) => {
     const result = convertFormOfNumber(input, inputMode, resultMode);
@@ -30,6 +31,7 @@ export const FormConverter: FC = () => {
     setInputMode(mode);
     setInput('');
     setResult('');
+    inputRef.current?.focus();
   };
 
   const handleResultModeChange: RadioChangeEventHandler = e => {
@@ -57,6 +59,7 @@ export const FormConverter: FC = () => {
           </div>
           {inputMode === 'd' ? (
             <DecimalShower
+              ref={inputRef}
               inputMode={true}
               value={input}
               error={inputError}
@@ -66,8 +69,10 @@ export const FormConverter: FC = () => {
             />
           ) : (
             <FloatInput
+              ref={inputRef}
               value={input}
               addonBefore="输入数字"
+              autoFocus={true}
               onInputChange={handleInputChange}
               floatType={inputMode}
             />
