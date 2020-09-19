@@ -23,7 +23,6 @@ export function convertFormOfNumber(
   resultMode: ModeOfNumber
 ): string | null {
   if (input === '') return '';
-  if (inputMode === resultMode) return input;
 
   const buffer = new ArrayBuffer(8);
   const dv = new DataView(buffer);
