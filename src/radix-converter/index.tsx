@@ -1,24 +1,28 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useRef } from 'react';
 import { parseNumber } from './utils';
 import RadixConverterShower from './radix-converter-shower';
 import './index.less';
+import { Input } from 'antd';
 
 export const RadixConverter: FC = () => {
   const [inputRadix, setInputRadix] = useState(10);
   const [resultRadix, setResultRadix] = useState(2);
   const [input, setInput] = useState('');
   const [result, setResult] = useState('');
+  const inputRef = useRef<Input>(null);
 
   const handleInputRadixChange = (radix: number) => {
     setInputRadix(radix);
     setInput('');
     setResult('');
+    inputRef.current?.focus();
   };
 
   const handleResultRadixChange = (radix: number) => {
     const newResult = input !== '' ? parseNumber(input, inputRadix).toString(radix) : '';
     setResult(newResult);
     setResultRadix(radix);
+    inputRef.current?.focus();
   };
 
   const handleInputChange = (newInput: string) => {
@@ -42,11 +46,13 @@ export const RadixConverter: FC = () => {
       </div>
       <div className="content">
         <RadixConverterShower
+          ref={inputRef}
           className="input"
           radix={inputRadix}
           value={input}
           inputMode={true}
           addonBefore={'转换数字'}
+          autoFocus
           onRadixChange={handleInputRadixChange}
           onInputChange={handleInputChange}
         />
