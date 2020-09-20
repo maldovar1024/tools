@@ -20,7 +20,6 @@ export const FormConverter: FC = () => {
 
   const handleInputChange = (input: string) => {
     const result = convertFormOfNumber(input, inputMode, resultMode);
-    console.log(result);
     setInputError(result === null);
     setInput(input);
     setResult(result ?? '');
