@@ -6,7 +6,7 @@ import './index.less';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <Router basename="/tools">
       <App />
     </Router>
   </React.StrictMode>,
