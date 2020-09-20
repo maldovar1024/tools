@@ -29,7 +29,8 @@ export const RadixConverter: FC = () => {
     if (newInput === '') {
       setInput('');
       setResult('');
-    } else {
+    } else if (!newInput.startsWith('-')) {
+      // 不支持负数
       const newResult = parseNumber(newInput, inputRadix).toString(resultRadix);
       if (newResult !== 'NaN') {
         setInput(newInput);
