@@ -1,6 +1,7 @@
 import { Layout, Menu } from 'antd';
 import React from 'react';
 import { Link, Route, Switch, useLocation } from 'react-router-dom';
+import NotFound from './404';
 import './app.less';
 import { FormConverter } from './form-converter';
 import Introduction from './introduction';
@@ -31,6 +32,7 @@ export default function App(): JSX.Element {
           <Route exact path="/" component={Introduction} />
           <Route exact path="/radix-converter" component={RadixConverter} />
           <Route exact path="/form-converter" component={FormConverter} />
+          <Route component={NotFound} />
         </Switch>
       </Content>
     </Layout>
