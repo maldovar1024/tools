@@ -21,8 +21,9 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
+    "test": "echo NO TEST!",
     "eject": "react-scripts eject",
+    "lint": "yarn eslint src --fix --ext .ts,.tsx",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
