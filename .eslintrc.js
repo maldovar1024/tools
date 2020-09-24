@@ -25,6 +25,10 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
-  rules: {},
+  rules: {
+    'react/prop-types': ['off'],
+    'react/display-name': ['off'],
+    '@typescript-eslint/explicit-function-return-type': ['off'],
+  },
   reportUnusedDisableDirectives: true,
 };
