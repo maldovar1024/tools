@@ -78,7 +78,10 @@ const floatRegExp: Record<FloatType, Record<FloatPartType, RegExp>> = {
   },
 };
 
-export function splitFloat(value: string, floatType: FloatType): [string, string, string] {
+export function splitFloat(
+  value: string,
+  floatType: FloatType
+): [string, string, string] {
   switch (floatType) {
     case 'f32':
       return [value.slice(0, 1), value.slice(1, 9), value.slice(9)];

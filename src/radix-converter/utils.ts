@@ -32,12 +32,18 @@ export function parseNumber(str: string, radix = 10) {
   // 捕获组 3 匹配小数部分
   let pattern: RegExp;
   if (radix <= 10) {
-    pattern = new RegExp(`^(-?)([0-${radix - 1}]*)\\.?([0-${radix - 1}]*)$`, 'i');
+    pattern = new RegExp(
+      `^(-?)([0-${radix - 1}]*)\\.?([0-${radix - 1}]*)$`,
+      'i'
+    );
   } else if (radix === 11) {
     pattern = new RegExp(`^(-?)([0-9A]*)\\.?([0-9A]*)$`, 'i');
   } else {
-    let letter = String.fromCharCode('A'.charCodeAt(0) + radix - 11);
-    pattern = new RegExp(`^(-?)([0-9A-${letter}]*)\\.?([0-9A-${letter}]*)$`, 'i');
+    const letter = String.fromCharCode('A'.charCodeAt(0) + radix - 11);
+    pattern = new RegExp(
+      `^(-?)([0-9A-${letter}]*)\\.?([0-9A-${letter}]*)$`,
+      'i'
+    );
   }
 
   const match = pattern.exec(str);

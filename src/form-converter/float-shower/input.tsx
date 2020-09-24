@@ -1,7 +1,17 @@
 import { Input, message } from 'antd';
-import React, { ClipboardEventHandler, forwardRef, useEffect, useRef } from 'react';
+import React, {
+  ClipboardEventHandler,
+  forwardRef,
+  useEffect,
+  useRef,
+} from 'react';
 import { ClearButton, CopyButton } from '../../component/buttons';
-import { checkFloatPart, floatLength, FloatType, onInputChangeWrapper } from '../utils';
+import {
+  checkFloatPart,
+  floatLength,
+  FloatType,
+  onInputChangeWrapper,
+} from '../utils';
 import { useFloat } from './hooks';
 
 interface FloatInputProp {
@@ -14,9 +24,16 @@ interface FloatInputProp {
 
 const FloatInput = forwardRef<Input, FloatInputProp>((props, ref) => {
   const { floatType, value, addonBefore, onInputChange } = props;
-  const { sign, setSign, exponent, setExponent, fraction, setFraction, total, setTotal } = useFloat(
-    floatType
-  );
+  const {
+    sign,
+    setSign,
+    exponent,
+    setExponent,
+    fraction,
+    setFraction,
+    total,
+    setTotal,
+  } = useFloat(floatType);
   const exponentInputRef = useRef<Input>(null);
   const fractionInputRef = useRef<Input>(null);
 
@@ -34,7 +51,10 @@ const FloatInput = forwardRef<Input, FloatInputProp>((props, ref) => {
   const handleSignChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'sign')) {
       setSign(part);
-      if (part.length === floatLength[floatType].sign && exponentInputRef.current) {
+      if (
+        part.length === floatLength[floatType].sign &&
+        exponentInputRef.current
+      ) {
         exponentInputRef.current.focus();
       }
     }
@@ -43,7 +63,10 @@ const FloatInput = forwardRef<Input, FloatInputProp>((props, ref) => {
   const handleExponentChange = onInputChangeWrapper(part => {
     if (checkFloatPart(part, floatType, 'exponent')) {
       setExponent(part);
-      if (part.length === floatLength[floatType].exponent && fractionInputRef.current) {
+      if (
+        part.length === floatLength[floatType].exponent &&
+        fractionInputRef.current
+      ) {
         fractionInputRef.current.focus();
       }
     }
@@ -131,7 +154,11 @@ const FloatInput = forwardRef<Input, FloatInputProp>((props, ref) => {
         tip="复制"
         onCopy={handleCopy}
       />
-      <ClearButton disabled={total.length === 0} tip="清除全部" onClick={handleClearAll} />
+      <ClearButton
+        disabled={total.length === 0}
+        tip="清除全部"
+        onClick={handleClearAll}
+      />
     </div>
   );
 });

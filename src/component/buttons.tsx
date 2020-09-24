@@ -20,7 +20,11 @@ interface ClearButtonProp {
   tip: string;
 }
 
-export const ClearButton: FC<ClearButtonProp> = ({ disabled, onClick, tip }) => (
+export const ClearButton: FC<ClearButtonProp> = ({
+  disabled,
+  onClick,
+  tip,
+}) => (
   <Tooltip title={tip} color="#7DBCEA">
     <Button
       disabled={disabled}

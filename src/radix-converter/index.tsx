@@ -19,7 +19,8 @@ export const RadixConverter: FC = () => {
   };
 
   const handleResultRadixChange = (radix: number) => {
-    const newResult = input !== '' ? parseNumber(input, inputRadix).toString(radix) : '';
+    const newResult =
+      input !== '' ? parseNumber(input, inputRadix).toString(radix) : '';
     setResult(newResult);
     setResultRadix(radix);
     inputRef.current?.focus();

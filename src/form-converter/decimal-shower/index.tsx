@@ -10,7 +10,12 @@ interface DecimalShowerCommonProps {
 }
 
 type DecimalShowerProps = (
-  | { inputMode: true; error: boolean; autoFocus?: boolean; onInputChange: (input: string) => void }
+  | {
+      inputMode: true;
+      error: boolean;
+      autoFocus?: boolean;
+      onInputChange: (input: string) => void;
+    }
   | { inputMode: false }
 ) &
   DecimalShowerCommonProps;

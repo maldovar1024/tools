@@ -45,7 +45,9 @@ export const FormConverter: FC = () => {
     <div className="form-converter">
       <div className="title">
         格式转换：
-        <span className="subtitle">十进制数与 IEEE 754 32 位、64 位浮点数之间的转换</span>
+        <span className="subtitle">
+          十进制数与 IEEE 754 32 位、64 位浮点数之间的转换
+        </span>
       </div>
       <div className="content">
         <div className="input">
@@ -86,9 +88,17 @@ export const FormConverter: FC = () => {
             </RadioGroup>
           </div>
           {resultMode === 'd' ? (
-            <DecimalShower inputMode={false} value={result} addonBefore="转换结果" />
+            <DecimalShower
+              inputMode={false}
+              value={result}
+              addonBefore="转换结果"
+            />
           ) : (
-            <FloatOutput value={result} addonBefore="转换结果" floatType={resultMode} />
+            <FloatOutput
+              value={result}
+              addonBefore="转换结果"
+              floatType={resultMode}
+            />
           )}
         </div>
       </div>

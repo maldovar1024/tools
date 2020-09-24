@@ -33,7 +33,12 @@ const FloatOutput: FC<FloatOutputProp> = props => {
 
   return (
     <div className="float-shower float-shower-output">
-      <Input className="sign addon-before" value={sign} addonBefore={addonBefore} readOnly />
+      <Input
+        className="sign addon-before"
+        value={sign}
+        addonBefore={addonBefore}
+        readOnly
+      />
       <Input className="exponent" value={exponent} readOnly />
       <Input className="fraction" value={fraction} readOnly />
       <CopyButton
