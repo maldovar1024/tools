@@ -1,44 +1,35 @@
-import React, { useState, FC, useRef } from 'react';
-import { parseNumber } from './utils';
-import RadixConverterShower from './radix-converter-shower';
+import React, { FC } from 'react';
+import { useConverterState } from '../hook';
 import './index.less';
-import { Input } from 'antd';
+import RadixConverterShower from './radix-converter-shower';
+import { parseNumber } from './utils';
+
+function parseNumberWrapper(
+  input: string,
+  inputRadix: number,
+  resultRadix: number
+): string | null {
+  if (input === '') {
+    return '';
+  }
+  if (!input.startsWith('-')) {
+    const result = parseNumber(input, inputRadix);
+    return Number.isNaN(result) ? null : result.toString(resultRadix);
+  }
+  return null;
+}
 
 export const RadixConverter: FC = () => {
-  const [inputRadix, setInputRadix] = useState(10);
-  const [resultRadix, setResultRadix] = useState(2);
-  const [input, setInput] = useState('');
-  const [result, setResult] = useState('');
-  const inputRef = useRef<Input>(null);
-
-  const handleInputRadixChange = (radix: number) => {
-    setInputRadix(radix);
-    setInput('');
-    setResult('');
-    inputRef.current?.focus();
-  };
-
-  const handleResultRadixChange = (radix: number) => {
-    const newResult =
-      input !== '' ? parseNumber(input, inputRadix).toString(radix) : '';
-    setResult(newResult);
-    setResultRadix(radix);
-    inputRef.current?.focus();
-  };
-
-  const handleInputChange = (newInput: string) => {
-    if (newInput === '') {
-      setInput('');
-      setResult('');
-    } else if (!newInput.startsWith('-')) {
-      // 不支持负数
-      const newResult = parseNumber(newInput, inputRadix).toString(resultRadix);
-      if (newResult !== 'NaN') {
-        setInput(newInput);
-        setResult(newResult);
-      }
-    }
-  };
+  const {
+    inputRef,
+    input,
+    result,
+    inputMode,
+    resultMode,
+    handleInputChange,
+    handleInputModeChange,
+    handleResultModeChange,
+  } = useConverterState<number, number>(10, 2, parseNumberWrapper);
 
   return (
     <div className="radix-converter">
@@ -50,21 +41,21 @@ export const RadixConverter: FC = () => {
         <RadixConverterShower
           ref={inputRef}
           className="input"
-          radix={inputRadix}
+          radix={inputMode}
           value={input}
           inputMode={true}
           addonBefore={'转换数字'}
           autoFocus
-          onRadixChange={handleInputRadixChange}
+          onRadixChange={handleInputModeChange}
           onInputChange={handleInputChange}
         />
         <RadixConverterShower
           className="result"
-          radix={resultRadix}
+          radix={resultMode}
           value={result}
           inputMode={false}
           addonBefore={'转换结果'}
-          onRadixChange={handleResultRadixChange}
+          onRadixChange={handleResultModeChange}
         />
       </div>
     </div>

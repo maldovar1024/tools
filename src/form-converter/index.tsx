@@ -1,6 +1,6 @@
-import { Input, Radio } from 'antd';
-import { RadioChangeEvent } from 'antd/lib/radio/interface';
-import React, { FC, useRef, useState } from 'react';
+import { Radio } from 'antd';
+import React, { FC, useCallback, useState } from 'react';
+import { useConverterState } from '../hook';
 import DecimalShower from './decimal-shower';
 import { FloatInput, FloatOutput } from './float-shower';
 import './index.less';
@@ -8,38 +8,30 @@ import { convertFormOfNumber, ModeOfNumber } from './utils';
 
 const RadioGroup = Radio.Group;
 
-type RadioChangeEventHandler = (e: RadioChangeEvent) => void;
-
 export const FormConverter: FC = () => {
-  const [input, setInput] = useState('');
   const [inputError, setInputError] = useState(false);
-  const [result, setResult] = useState('');
-  const [inputMode, setInputMode] = useState<ModeOfNumber>('d');
-  const [resultMode, setResultMode] = useState<ModeOfNumber>('f32');
-  const inputRef = useRef<Input>(null);
-
-  const handleInputChange = (input: string) => {
-    const result = convertFormOfNumber(input, inputMode, resultMode);
-    setInputError(result === null);
-    setInput(input);
-    setResult(result ?? '');
-  };
-
-  const handleInputModeChange: RadioChangeEventHandler = e => {
-    const mode = e.target.value as ModeOfNumber;
-    setInputMode(mode);
-    setInput('');
-    setResult('');
-    inputRef.current?.focus();
-  };
-
-  const handleResultModeChange: RadioChangeEventHandler = e => {
-    const mode = e.target.value as ModeOfNumber;
-    setResultMode(mode);
-    const result = convertFormOfNumber(input, inputMode, mode);
-    setInputError(result === null);
-    setResult(result ?? '');
-  };
+  const numberFormConverterWrapper = useCallback(
+    (input: string, inputMode: ModeOfNumber, resultMode: ModeOfNumber) => {
+      const result = convertFormOfNumber(input, inputMode, resultMode);
+      setInputError(result === null);
+      return result ?? '';
+    },
+    []
+  );
+  const {
+    inputRef,
+    input,
+    result,
+    inputMode,
+    resultMode,
+    handleInputChange,
+    handleInputModeChange,
+    handleResultModeChange,
+  } = useConverterState<ModeOfNumber, ModeOfNumber>(
+    'd',
+    'f32',
+    numberFormConverterWrapper
+  );
 
   return (
     <div className="form-converter">
@@ -52,7 +44,10 @@ export const FormConverter: FC = () => {
       <div className="content">
         <div className="input">
           <div className="selection">
-            <RadioGroup value={inputMode} onChange={handleInputModeChange}>
+            <RadioGroup
+              value={inputMode}
+              onChange={e => handleInputModeChange(e.target.value)}
+            >
               <Radio value="d">十进制数</Radio>
               <Radio value="f32">32 位浮点数</Radio>
               <Radio value="f64">64 位浮点数</Radio>
@@ -81,7 +76,10 @@ export const FormConverter: FC = () => {
         </div>
         <div className="result">
           <div className="selection">
-            <RadioGroup value={resultMode} onChange={handleResultModeChange}>
+            <RadioGroup
+              value={resultMode}
+              onChange={e => handleResultModeChange(e.target.value)}
+            >
               <Radio value="d">十进制数</Radio>
               <Radio value="f32">32 位浮点数</Radio>
               <Radio value="f64">64 位浮点数</Radio>
