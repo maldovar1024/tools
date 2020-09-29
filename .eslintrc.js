@@ -29,6 +29,7 @@ module.exports = {
     'react/prop-types': ['off'],
     'react/display-name': ['off'],
     '@typescript-eslint/explicit-function-return-type': ['off'],
+    'no-console': ['warn'],
   },
   reportUnusedDisableDirectives: true,
 };
