@@ -2,7 +2,7 @@
 
 这个项目包含了一些纯前端实现的小工具。
 
-GitHub 仓库：https://github.com/ZhangZhengyi1024/tools
+GitHub 仓库：https://github.com/zhangzhengyi1024/tools
 
 ## 技术栈
 
