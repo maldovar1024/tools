@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NotFound from './404';
 import SideBar, { NavLinkConfig } from './component/sidebar';
-import { FormConverter } from './form-converter';
+import FormConverter from './form-converter';
 import Introduction from './introduction';
-import { RadixConverter } from './radix-converter';
+import RadixConverter from './radix-converter';
 
 const { Content } = Layout;
 
