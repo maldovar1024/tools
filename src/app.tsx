@@ -1,32 +1,34 @@
-import { Layout, Menu } from 'antd';
-import React from 'react';
-import { Link, Route, Switch, useLocation } from 'react-router-dom';
+import { Layout } from 'antd';
+import React, { FC } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import NotFound from './404';
 import './app.less';
+import SideBar, { NavLinkConfig } from './component/sidebar';
 import { FormConverter } from './form-converter';
 import Introduction from './introduction';
 import { RadixConverter } from './radix-converter';
 
-const { Sider, Content } = Layout;
-const { Item } = Menu;
+const { Content } = Layout;
 
-export default function App(): JSX.Element {
-  const location = useLocation();
+const navlinkConfig: NavLinkConfig = [
+  {
+    to: '/',
+    text: '简介',
+  },
+  {
+    to: '/radix-converter',
+    text: '进制转换',
+  },
+  {
+    to: '/form-converter',
+    text: '格式转换',
+  },
+];
+
+const App: FC = () => {
   return (
     <Layout className="App">
-      <Sider>
-        <Menu theme="dark" mode="inline" selectedKeys={[location.pathname]}>
-          <Item key="/">
-            <Link to="/">简介</Link>
-          </Item>
-          <Item key="/radix-converter">
-            <Link to="/radix-converter">进制转换</Link>
-          </Item>
-          <Item key="/form-converter">
-            <Link to="/form-converter">格式转换</Link>
-          </Item>
-        </Menu>
-      </Sider>
+      <SideBar theme="light" linkProps={navlinkConfig} />
       <Content>
         <Switch>
           <Route exact path="/" component={Introduction} />
@@ -37,4 +39,6 @@ export default function App(): JSX.Element {
       </Content>
     </Layout>
   );
-}
+};
+
+export default App;
