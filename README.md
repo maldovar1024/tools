@@ -7,7 +7,35 @@
 - 语言：typescript + less
 - 框架：React
 - 组件库：antd
-- 包管理工具：yarn
+- 包管理工具：yarn2
+
+## 本地开发流程
+
+1. 克隆代码
+
+1. 安装依赖库
+
+   ```bash
+   yarn
+   ```
+
+1. 配置 IDE 支持（以 VSCode 为例）
+
+   ```bash
+   yarn dlx @yarnpkg/pnpify --sdk vscode
+   ```
+
+1. 本地开发
+
+   ```bash
+   yarn start
+   ```
+
+1. 部署到 GitHub Pages
+
+   ```bash
+   yarn deploy
+   ```
 
 ## 进制转换
 
