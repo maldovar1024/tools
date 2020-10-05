@@ -1,11 +1,13 @@
 import { Layout } from 'antd';
-import React, { FC } from 'react';
+import React, { FC, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NotFound from './404';
+import Fallback from './component/fallback';
 import SideBar, { NavLinkConfig } from './component/sidebar';
-import FormConverter from './form-converter';
-import Introduction from './introduction';
-import RadixConverter from './radix-converter';
+
+const FormConverter = lazy(() => import('./form-converter'));
+const Introduction = lazy(() => import('./introduction'));
+const RadixConverter = lazy(() => import('./radix-converter'));
 
 const { Content } = Layout;
 
@@ -29,12 +31,14 @@ const App: FC = () => {
     <Layout className="App">
       <SideBar theme="light" linkProps={navlinkConfig} />
       <Content>
-        <Switch>
-          <Route exact path="/" component={Introduction} />
-          <Route exact path="/radix-converter" component={RadixConverter} />
-          <Route exact path="/form-converter" component={FormConverter} />
-          <Route component={NotFound} />
-        </Switch>
+        <Suspense fallback={<Fallback />}>
+          <Switch>
+            <Route exact path="/" component={Introduction} />
+            <Route exact path="/radix-converter" component={RadixConverter} />
+            <Route exact path="/form-converter" component={FormConverter} />
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
       </Content>
     </Layout>
   );
