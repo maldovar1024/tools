@@ -21,11 +21,9 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "echo NO TEST!",
-    "eject": "react-scripts eject",
+    "test": "echo NO TEST! && exit 1",
     "lint": "yarn eslint src --fix --ext .ts,.tsx",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "yarn build && gh-pages -d build"
   },
   "browserslist": {
     "production": [
