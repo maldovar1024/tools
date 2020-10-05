@@ -2,7 +2,6 @@ import { Layout } from 'antd';
 import React, { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NotFound from './404';
-import './app.less';
 import SideBar, { NavLinkConfig } from './component/sidebar';
 import { FormConverter } from './form-converter';
 import Introduction from './introduction';
