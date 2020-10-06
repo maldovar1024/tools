@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import NotFound from './404';
 import Fallback from './component/fallback';
 import SideBar, { NavLinkConfig } from './component/sidebar';
+import NetErrorBoundary from './net-error-boundary';
 
 const FormConverter = lazy(() => import('./form-converter'));
 const Introduction = lazy(() => import('./introduction'));
@@ -31,14 +32,16 @@ const App: FC = () => {
     <Layout className="App">
       <SideBar theme="light" linkProps={navlinkConfig} />
       <Content>
-        <Suspense fallback={<Fallback />}>
-          <Switch>
-            <Route exact path="/" component={Introduction} />
-            <Route exact path="/radix-converter" component={RadixConverter} />
-            <Route exact path="/form-converter" component={FormConverter} />
-            <Route component={NotFound} />
-          </Switch>
-        </Suspense>
+        <NetErrorBoundary>
+          <Suspense fallback={<Fallback />}>
+            <Switch>
+              <Route exact path="/" component={Introduction} />
+              <Route exact path="/radix-converter" component={RadixConverter} />
+              <Route exact path="/form-converter" component={FormConverter} />
+              <Route component={NotFound} />
+            </Switch>
+          </Suspense>
+        </NetErrorBoundary>
       </Content>
     </Layout>
   );
