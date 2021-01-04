@@ -12,6 +12,8 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    worker: true,
+    serviceworker: true,
   },
   settings: {
     react: {
@@ -22,6 +24,7 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
