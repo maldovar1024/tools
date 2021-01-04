@@ -1,6 +1,5 @@
 import { Tabs } from 'antd';
 import React from 'react';
-import './app.less';
 import { FormConverter } from './form-converter';
 import { RadixConverter } from './radix-converter';
 
