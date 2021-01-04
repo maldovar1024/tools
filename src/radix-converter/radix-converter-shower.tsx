@@ -73,4 +73,6 @@ const RadixConverterShower = forwardRef<Input, RadixConverterShowerProp>(
   )
 );
 
+RadixConverterShower.displayName = 'RadixConverterShower';
+
 export default RadixConverterShower;

@@ -42,4 +42,6 @@ const DecimalShower = forwardRef<Input, DecimalShowerProps>((props, ref) =>
   )
 );
 
+DecimalShower.displayName = 'DecimalShower';
+
 export default DecimalShower;

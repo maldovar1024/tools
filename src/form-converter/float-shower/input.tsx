@@ -163,4 +163,6 @@ const FloatInput = forwardRef<Input, FloatInputProp>((props, ref) => {
   );
 });
 
+FloatInput.displayName = 'FloatInput';
+
 export default FloatInput;
