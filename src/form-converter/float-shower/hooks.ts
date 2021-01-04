@@ -1,7 +1,18 @@
 import { useCallback, useState } from 'react';
 import { checkFloatPart, floatLength, FloatType, splitFloat } from '../utils';
 
-export function useFloat(floatType: FloatType) {
+export interface FloatHook {
+  sign: string;
+  setSign: React.Dispatch<React.SetStateAction<string>>;
+  exponent: string;
+  setExponent: React.Dispatch<React.SetStateAction<string>>;
+  fraction: string;
+  setFraction: React.Dispatch<React.SetStateAction<string>>;
+  readonly total: string;
+  setTotal: (value: string) => void;
+}
+
+export function useFloat(floatType: FloatType): FloatHook {
   const [sign, setSign] = useState('');
   const [exponent, setExponent] = useState('');
   const [fraction, setFraction] = useState('');

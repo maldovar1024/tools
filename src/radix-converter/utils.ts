@@ -4,7 +4,11 @@
  * @param end 终止值（不含）
  * @param step 步长（默认为 1）
  */
-export function* range(start: number, end: number, step = 1) {
+export function* range(
+  start: number,
+  end: number,
+  step = 1
+): Generator<number, void, void> {
   if (step > 0 && end > start) {
     for (let i = start; i < end; i += step) {
       yield i;
@@ -21,7 +25,7 @@ export function* range(start: number, end: number, step = 1) {
  * @param str 要转换成数字的字符串，可以为整数或定点表示的小数
  * @param radix 转换的基数（2~36），默认为 10
  */
-export function parseNumber(str: string, radix = 10) {
+export function parseNumber(str: string, radix = 10): number {
   if (radix < 2 || radix > 36) {
     return NaN;
   }
