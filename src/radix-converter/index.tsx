@@ -19,7 +19,7 @@ function parseNumberWrapper(
   return null;
 }
 
-export const RadixConverter: FC = () => {
+const RadixConverter: FC = () => {
   const {
     inputRef,
     input,
@@ -61,3 +61,5 @@ export const RadixConverter: FC = () => {
     </div>
   );
 };
+
+export default RadixConverter;

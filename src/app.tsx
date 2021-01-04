@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
 import React from 'react';
-import { FormConverter } from './form-converter';
-import { RadixConverter } from './radix-converter';
+import FormConverter from './form-converter';
+import RadixConverter from './radix-converter';
 
 const { TabPane } = Tabs;
 

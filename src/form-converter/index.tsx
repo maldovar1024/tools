@@ -8,7 +8,7 @@ import { convertFormOfNumber, ModeOfNumber } from './utils';
 
 const RadioGroup = Radio.Group;
 
-export const FormConverter: FC = () => {
+const FormConverter: FC = () => {
   const [inputError, setInputError] = useState(false);
   const numberFormConverterWrapper = useCallback(
     (input: string, inputMode: ModeOfNumber, resultMode: ModeOfNumber) => {
@@ -103,3 +103,5 @@ export const FormConverter: FC = () => {
     </div>
   );
 };
+
+export default FormConverter;
