@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useConverterState } from '../hook';
-import './index.less';
 import RadixConverterShower from './radix-converter-shower';
 import { parseNumber } from './utils';
 

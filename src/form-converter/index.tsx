@@ -3,7 +3,6 @@ import React, { FC, useCallback, useState } from 'react';
 import { useConverterState } from '../hook';
 import DecimalShower from './decimal-shower';
 import { FloatInput, FloatOutput } from './float-shower';
-import './index.less';
 import { convertFormOfNumber, ModeOfNumber } from './utils';
 
 const RadioGroup = Radio.Group;
