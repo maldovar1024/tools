@@ -1,4 +1,3 @@
-const { loaderByName, addBeforeLoader } = require('@craco/craco');
 const CracoLessPlugin = require('craco-less');
 
 module.exports = {
@@ -14,14 +13,4 @@ module.exports = {
       },
     },
   ],
-  webpack: {
-    configure(config) {
-      addBeforeLoader(config, loaderByName('file-loader'), {
-        test: /\.md$/,
-        use: ['raw-loader'],
-      });
-
-      return config;
-    },
-  },
 };
