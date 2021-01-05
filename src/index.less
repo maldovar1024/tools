@@ -13,8 +13,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root,
 .App {
-  height: 100vh;
+  height: 100%;
 }
 
 .radix-converter {
@@ -32,12 +33,19 @@ body {
   font-size: 1.5rem;
   color: white;
   background-color: #7dbcea;
+  user-select: none;
 
   .subtitle {
     font-size: 1rem;
   }
 }
 
+.ant-tabs-left > .ant-tabs-content-holder {
+  overflow: auto;
+  & > .ant-tabs-content > .ant-tabs-tabpane {
+    padding-top: 24px;
+  }
+}
 .content {
   background-color: rgb(243, 241, 241);
   padding: 20px;

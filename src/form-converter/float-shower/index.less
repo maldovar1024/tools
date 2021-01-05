@@ -2,8 +2,6 @@
 @input-padding: 6px;
 @exponent-width: 84px;
 @fraction-width: 400px;
-@exponent-width-with-padding: @exponent-width + 2 * @input-padding;
-@fraction-width-with-padding: @fraction-width + 2 * @input-padding;
 
 .input-inline-padding {
   padding-left: @input-padding;
@@ -65,10 +63,12 @@
   }
 
   .exponent {
-    width: @exponent-width-with-padding;
+    box-sizing: content-box;
+    width: @exponent-width;
   }
 
   .fraction {
-    width: @fraction-width-with-padding;
+    box-sizing: content-box;
+    width: @fraction-width;
   }
 }
