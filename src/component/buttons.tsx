@@ -1,6 +1,6 @@
 import { CloseCircleFilled, CopyOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
-import React, { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 
 interface CopyButtonProp {
   disabled: boolean;
@@ -16,7 +16,7 @@ export const CopyButton: FC<CopyButtonProp> = ({ disabled, onCopy, tip }) => (
 
 interface ClearButtonProp {
   disabled: boolean;
-  onClick: React.MouseEventHandler<HTMLElement>;
+  onClick: MouseEventHandler<HTMLElement>;
   tip: string;
 }
 

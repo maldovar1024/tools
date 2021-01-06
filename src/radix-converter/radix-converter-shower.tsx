@@ -1,5 +1,5 @@
 import { Input, Radio, Select } from 'antd';
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { range } from './utils';
 
 const RadioGroup = Radio.Group;

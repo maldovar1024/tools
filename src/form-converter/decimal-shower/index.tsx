@@ -1,6 +1,6 @@
 import { Input } from 'antd';
 import classnames from 'classnames';
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { onInputChangeWrapper } from '../utils';
 import './index.less';
 

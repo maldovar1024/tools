@@ -1,5 +1,5 @@
 import { Tabs } from 'antd';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import FormConverter from './form-converter';
 import RadixConverter from './radix-converter';
 

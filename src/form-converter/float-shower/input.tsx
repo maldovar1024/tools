@@ -1,10 +1,5 @@
 import { Input, message } from 'antd';
-import React, {
-  ClipboardEventHandler,
-  forwardRef,
-  useEffect,
-  useRef,
-} from 'react';
+import { ClipboardEventHandler, forwardRef, useEffect, useRef } from 'react';
 import { ClearButton, CopyButton } from '../../component/buttons';
 import {
   checkFloatPart,

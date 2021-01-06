@@ -1,5 +1,5 @@
 import { Radio } from 'antd';
-import React, { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useConverterState } from '../hook';
 import DecimalShower from './decimal-shower';
 import { FloatInput, FloatOutput } from './float-shower';

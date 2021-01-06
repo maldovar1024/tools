@@ -1,5 +1,5 @@
 import { Input, message } from 'antd';
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { CopyButton } from '../../component/buttons';
 import { useFloat } from './hooks';
 import { floatLength, FloatType } from '../utils';
